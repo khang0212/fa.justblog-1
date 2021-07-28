@@ -26,8 +26,8 @@
                 {
                     Id = Guid.NewGuid(),
                     Name = "Armand Fintano",
-                    UrlSlug =   "travel",
-                    Description ="Travel Blog",
+                    UrlSlug =   "Robinson",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
                     IsDeleted = false
                 },
                 new Category
@@ -35,7 +35,7 @@
                     Id = Guid.NewGuid(),
                     Name = "Oscar Cardozo",
                     UrlSlug =   "recipe",
-                    Description ="Recipe Blog",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
                     IsDeleted = false
                 },
                 new Category
@@ -43,7 +43,7 @@
                     Id = Guid.NewGuid(),
                     Name = "Grizzy",
                     UrlSlug =   "tips",
-                    Description ="Tips Blog",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
                     IsDeleted = false
                 },
                 new Category
@@ -51,7 +51,7 @@
                     Id = Guid.NewGuid(),
                     Name = "Bernwood",
                     UrlSlug =   "life-style",
-                    Description ="Life Style Blog",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
                     IsDeleted = false
                 }
             };
@@ -61,7 +61,7 @@
                 Id = Guid.NewGuid(),
                 Name = "Camel",
                 UrlSlug = "travel",
-                Description = "Travel Tag",
+                Description = "Automatically earn a total of 5% back on all Zappos purchases when using your Amazon Rewards Visa Card.*",
                 IsDeleted = false
             };
 
@@ -70,7 +70,7 @@
                 Id = Guid.NewGuid(),
                 Name = "Xahara",
                 UrlSlug = "food",
-                Description = "food Tag",
+                Description = "Automatically earn a total of 5% back on all Zappos purchases when using your Amazon Rewards Visa Card.*",
                 IsDeleted = false
             };
 
@@ -79,7 +79,7 @@
                 Id = Guid.NewGuid(),
                 Name = "Futre",
                 UrlSlug = "recipe",
-                Description = "recipe Tag",
+                Description = "Automatically earn a total of 5% back on all Zappos purchases when using your Amazon Rewards Visa Card.*",
                 IsDeleted = false
             };
 
@@ -88,7 +88,7 @@
                 Id = Guid.NewGuid(),
                 Name = "Figo",
                 UrlSlug = "tips",
-                Description = "tips Tag",
+                Description = "Automatically earn a total of 5% back on all Zappos purchases when using your Amazon Rewards Visa Card.*",
                 IsDeleted = false
             };
 
@@ -97,7 +97,7 @@
                 Id = Guid.NewGuid(),
                 Name = "Germany",
                 UrlSlug = "study",
-                Description = "study Tag",
+                Description = "Automatically earn a total of 5% back on all Zappos purchases when using your Amazon Rewards Visa Card.*",
                 IsDeleted = false
             };
 
@@ -106,7 +106,7 @@
                 Id = Guid.NewGuid(),
                 Name = "Gasperini",
                 UrlSlug = "life-style",
-                Description = "life style Tag",
+                Description = "Automatically earn a total of 5% back on all Zappos purchases when using your Amazon Rewards Visa Card.*",
                 IsDeleted = false
             };
 
@@ -115,7 +115,7 @@
                 Id = Guid.NewGuid(),
                 Name = "Scroll",
                 UrlSlug = "setup",
-                Description = "setup Tag",
+                Description = "Automatically earn a total of 5% back on all Zappos purchases when using your Amazon Rewards Visa Card.*",
                 IsDeleted = false
             };
 
@@ -126,9 +126,15 @@
                     Id = Guid.NewGuid(),
                     Title = "Post 01",
                     UrlSlug = "post-01",
-                    ShortDescription = "This is Post 01",
-                    ImageUrl = "blog-1.jpg",
-                    PostContent = "Content post 01",
+                    ShortDescription = "Request blocked. We can't connect to the server for this app or website at this time. There might be too much traffic or a configuration error. Try again later, or contact the app or website owner.",
+                    ImageUrl = "white1.jpg",
+                    PostContent = "All Vehicles Prices Exclude Sales Taxes, DMV Lic." +
+                    " Fees, Finance Charges if Any, $80 Dealer Document Preparation Charge, " +
+                    "Any Emission Testing Charge, Rebates in Lieu of Special Financing, All Vehicles " +
+                    "Subject to Prior Sale, Prices Subject to Change. We are not responsible for misprints " +
+                    "or errors. Folsom Buick GMC Makes Every Effort to Assure Accurate Information, Should an " +
+                    "Error Occur, We will Make Updates Promptly. See Dealer for complete details. EPA Estimates " +
+                    "Only No Cooling Off Period on Home Deliveries",
                     PublishedDate = DateTime.Now,
                     IsDeleted = false,
                     Published = true,
@@ -140,9 +146,15 @@
                     Id = Guid.NewGuid(),
                     Title = "Post 02",
                     UrlSlug = "post-02",
-                    ShortDescription = "This is Post 02",
-                    ImageUrl = "blog-2.jpg",
-                    PostContent = "Content post 02",
+                    ShortDescription = "Request blocked. We can't connect to the server for this app or website at this time. There might be too much traffic or a configuration error. Try again later, or contact the app or website owner.",
+                    ImageUrl = "white2.jpg",
+                    PostContent = "All Vehicles Prices Exclude Sales Taxes, DMV Lic." +
+                    " Fees, Finance Charges if Any, $80 Dealer Document Preparation Charge, " +
+                    "Any Emission Testing Charge, Rebates in Lieu of Special Financing, All Vehicles " +
+                    "Subject to Prior Sale, Prices Subject to Change. We are not responsible for misprints " +
+                    "or errors. Folsom Buick GMC Makes Every Effort to Assure Accurate Information, Should an " +
+                    "Error Occur, We will Make Updates Promptly. See Dealer for complete details. EPA Estimates " +
+                    "Only No Cooling Off Period on Home Deliveries",
                     PublishedDate = DateTime.Now,
                     IsDeleted = false,
                     Published = true,
@@ -154,9 +166,15 @@
                     Id = Guid.NewGuid(),
                     Title = "Post 03",
                     UrlSlug = "post-03",
-                    ShortDescription = "This is Post 03",
-                    ImageUrl = "blog-3.jpg",
-                    PostContent = "Content post 03",
+                    ShortDescription = "Request blocked. We can't connect to the server for this app or website at this time. There might be too much traffic or a configuration error. Try again later, or contact the app or website owner.",
+                    ImageUrl = "white3.jpg",
+                    PostContent = "All Vehicles Prices Exclude Sales Taxes, DMV Lic." +
+                    " Fees, Finance Charges if Any, $80 Dealer Document Preparation Charge, " +
+                    "Any Emission Testing Charge, Rebates in Lieu of Special Financing, All Vehicles " +
+                    "Subject to Prior Sale, Prices Subject to Change. We are not responsible for misprints " +
+                    "or errors. Folsom Buick GMC Makes Every Effort to Assure Accurate Information, Should an " +
+                    "Error Occur, We will Make Updates Promptly. See Dealer for complete details. EPA Estimates " +
+                    "Only No Cooling Off Period on Home Deliveries",
                     PublishedDate = DateTime.Now,
                     IsDeleted = false,
                     Published = true,
@@ -168,9 +186,15 @@
                     Id = Guid.NewGuid(),
                     Title = "Post 04",
                     UrlSlug = "post-04",
-                    ShortDescription = "This is Post 04",
-                    ImageUrl = "blog-4.jpg",
-                    PostContent = "Content post 04",
+                    ShortDescription = "Request blocked. We can't connect to the server for this app or website at this time. There might be too much traffic or a configuration error. Try again later, or contact the app or website owner.",
+                    ImageUrl = "white4.jpg",
+                    PostContent = "All Vehicles Prices Exclude Sales Taxes, DMV Lic." +
+                    " Fees, Finance Charges if Any, $80 Dealer Document Preparation Charge, " +
+                    "Any Emission Testing Charge, Rebates in Lieu of Special Financing, All Vehicles " +
+                    "Subject to Prior Sale, Prices Subject to Change. We are not responsible for misprints " +
+                    "or errors. Folsom Buick GMC Makes Every Effort to Assure Accurate Information, Should an " +
+                    "Error Occur, We will Make Updates Promptly. See Dealer for complete details. EPA Estimates " +
+                    "Only No Cooling Off Period on Home Deliveries",
                     PublishedDate = DateTime.Now,
                     IsDeleted = false,
                     Published = true,
@@ -182,9 +206,15 @@
                     Id = Guid.NewGuid(),
                     Title = "Post 05",
                     UrlSlug = "post-05",
-                    ShortDescription = "This is Post 05",
-                    ImageUrl = "blog-5.jpg",
-                    PostContent = "Content post 05",
+                    ShortDescription = "Request blocked. We can't connect to the server for this app or website at this time. There might be too much traffic or a configuration error. Try again later, or contact the app or website owner.",
+                    ImageUrl = "white5.jpeg",
+                    PostContent = "All Vehicles Prices Exclude Sales Taxes, DMV Lic." +
+                    " Fees, Finance Charges if Any, $80 Dealer Document Preparation Charge, " +
+                    "Any Emission Testing Charge, Rebates in Lieu of Special Financing, All Vehicles " +
+                    "Subject to Prior Sale, Prices Subject to Change. We are not responsible for misprints " +
+                    "or errors. Folsom Buick GMC Makes Every Effort to Assure Accurate Information, Should an " +
+                    "Error Occur, We will Make Updates Promptly. See Dealer for complete details. EPA Estimates " +
+                    "Only No Cooling Off Period on Home Deliveries",
                     PublishedDate = DateTime.Now,
                     IsDeleted = false,
                     Published = true,
@@ -196,9 +226,15 @@
                     Id = Guid.NewGuid(),
                     Title = "Post 06",
                     UrlSlug = "post-06",
-                    ShortDescription = "This is Post 06",
-                    ImageUrl = "blog-6.jpg",
-                    PostContent = "Content post 06",
+                    ShortDescription = "Request blocked. We can't connect to the server for this app or website at this time. There might be too much traffic or a configuration error. Try again later, or contact the app or website owner.",
+                    ImageUrl = "lokonga1.jpeg",
+                    PostContent = "All Vehicles Prices Exclude Sales Taxes, DMV Lic." +
+                    " Fees, Finance Charges if Any, $80 Dealer Document Preparation Charge, " +
+                    "Any Emission Testing Charge, Rebates in Lieu of Special Financing, All Vehicles " +
+                    "Subject to Prior Sale, Prices Subject to Change. We are not responsible for misprints " +
+                    "or errors. Folsom Buick GMC Makes Every Effort to Assure Accurate Information, Should an " +
+                    "Error Occur, We will Make Updates Promptly. See Dealer for complete details. EPA Estimates " +
+                    "Only No Cooling Off Period on Home Deliveries",
                     PublishedDate = DateTime.Now,
                     IsDeleted = false,
                     Published = true,
