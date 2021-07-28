@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FA.JustBlog.Models.Common
 {
     [Table("Category", Schema = "Common")]
-    public class Category
+    public class Category : BaseEntity
     {
         public Guid Id { get; set; }
 
