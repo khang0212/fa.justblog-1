@@ -24,7 +24,6 @@ namespace FA.JustBlog.Data.Infrastructure.BaseRepositories
         public GenericRepository(JustBlogDbContext context)
         {
             _context = context;
-            // Find Property with typeof(T) on dataContext
             var typeOfDbSet = typeof(DbSet<T>);
             foreach (var prop in context.GetType().GetProperties())
             {
