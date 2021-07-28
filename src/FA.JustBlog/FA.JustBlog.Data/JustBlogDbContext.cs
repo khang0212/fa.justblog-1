@@ -8,7 +8,7 @@ namespace FA.JustBlog.Data
 {
     public class JustBlogDbContext : DbContext
     {
-        public JustBlogDbContext() : base("JustBlogDbConn")
+        public JustBlogDbContext() : base("JustBlogConn")
         {
             Database.SetInitializer(new DbInitializer());
         }
