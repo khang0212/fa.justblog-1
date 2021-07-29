@@ -27,6 +27,7 @@ namespace FA.JustBlog.Models.Common
         public string UrlSlug { get; set; }
 
         public bool Published { get; set; }
+        public int ViewCount { get; set; }
 
         public DateTime PublishedDate { get; set; }
 
