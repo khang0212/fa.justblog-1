@@ -21,5 +21,6 @@ namespace FA.JustBlog.Services
         Task<int> CountPostsForTagAsync(string tag);
 
         Task<IEnumerable<Post>> GetPostsByTagAsync(string tag);
+        Task<IEnumerable<Post>> GetHighestViewCountPostAsync(int count);
     }
 }
