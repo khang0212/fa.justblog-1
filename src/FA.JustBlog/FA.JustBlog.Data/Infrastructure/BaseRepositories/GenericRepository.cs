@@ -10,11 +10,9 @@ namespace FA.JustBlog.Data.Infrastructure.BaseRepositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IBaseEntity
     {
-        #region Protected Fields
-
+        #region Field
         protected readonly JustBlogDbContext _context;
         protected readonly DbSet<T> DbSet;
-
         #endregion
 
         /// <summary>
