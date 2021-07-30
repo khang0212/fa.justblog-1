@@ -8,17 +8,13 @@ namespace FA.JustBlog.Data.Infrastructure
 {
     public interface IUnitOfWork : IDisposable
     {
-        JustBlogDbContext DataContext { get; }
-
-        #region Master Data
-
+        JustBlogDbContext DbContext { get; }
+ 
         IGenericRepository<Category> CategoryRepository { get; }
 
         IGenericRepository<Tag> TagRepository { get; }
 
         IGenericRepository<Post> PostRepository { get; }
-
-        #endregion
 
         int SaveChanges();
 

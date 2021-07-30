@@ -9,7 +9,7 @@ namespace FA.JustBlog.Data.Infrastructure
     {
         private readonly JustBlogDbContext _dbContext;
 
-        public JustBlogDbContext DataContext => _dbContext;
+        public JustBlogDbContext DbContext => _dbContext;
 
         public UnitOfWork(JustBlogDbContext dbContext)
         {
