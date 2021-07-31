@@ -53,6 +53,62 @@
                     UrlSlug =   "Libertadores",
                     Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
                     IsDeleted = false
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Gross",
+                    UrlSlug =   "Gezkaa",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
+                    IsDeleted = false
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Robert",
+                    UrlSlug =   "Conte",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
+                    IsDeleted = false
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Gerrard",
+                    UrlSlug =   "CAN",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
+                    IsDeleted = false
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Python",
+                    UrlSlug =   ".Net",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
+                    IsDeleted = false
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Carlo",
+                    UrlSlug =   "Gilberto",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
+                    IsDeleted = false
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Judo",
+                    UrlSlug =   "Ferrari",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
+                    IsDeleted = false
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Ottoban",
+                    UrlSlug =   "Likanzo",
+                    Description ="The All-New ASICS GEL-KAYANO® 28 delivers FF Blast™ for a more stable ride and a lower-profile heel to cradle your foot.",
+                    IsDeleted = false
                 }
             };
 
