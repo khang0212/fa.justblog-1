@@ -12,6 +12,6 @@ namespace FA.JustBlog.Services
 
         Task<IEnumerable<Tag>> GetTagsByPostAsync(string post);
 
-        Task<IEnumerable<Tag>> GetHighestViewCountTagAsync(int count);
+        IEnumerable<Tag> GetHighestViewCountTag(int count);
     }
 }
