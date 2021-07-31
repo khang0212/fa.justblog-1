@@ -19,9 +19,9 @@ namespace FA.JustBlog.Services
             return await _unitOfWork.TagRepository.GetQuery().CountAsync(p => p.Posts.Any(t => t.Title == post));
         }
 
-        public async Task<IEnumerable<Tag>> GetHighestViewCountTagAsync(int count)
+        public IEnumerable<Tag> GetHighestViewCountTag(int count)
         {
-            return await _unitOfWork.TagRepository.GetQuery().OrderByDescending(p => p.Count).Take(count).ToListAsync();
+            return _unitOfWork.TagRepository.GetQuery().OrderByDescending(p => p.Count).Take(count).ToList();
         }
 
         public async Task<IEnumerable<Tag>> GetTagsByPostAsync(string post)

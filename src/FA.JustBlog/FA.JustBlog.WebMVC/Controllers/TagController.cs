@@ -19,9 +19,9 @@ namespace FA.JustBlog.WebMVC.Controllers
             return View();
         }
         [ChildActionOnly]
-        public async Task<ActionResult> PopularTags()
+        public  ActionResult PopularTags()
         {
-            var popularTags = await _tagServices.GetHighestViewCountTagAsync(10);
+            var popularTags = _tagServices.GetHighestViewCountTag(10);
             return PartialView("~/Views/Tag/_PopularTags.cshtml", popularTags);
         }
     }
