@@ -8,7 +8,6 @@ namespace FA.JustBlog.Models.Common
     [Table("Category", Schema = "Common")]
     public class Category : BaseEntity
     {
-        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "The {0} is required.")]
         [StringLength(255, ErrorMessage = "The {0} must between {2} and {1} characters", MinimumLength = 3)]

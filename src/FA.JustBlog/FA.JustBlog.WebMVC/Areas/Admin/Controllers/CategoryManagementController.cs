@@ -11,12 +11,12 @@ using System.Web.Mvc;
 using FA.JustBlog.Data;
 using FA.JustBlog.Models.Common;
 using FA.JustBlog.Services;
+using FA.JustBlog.WebMVC.ViewModel;
 
 namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
 {
     public class CategoryManagementController : Controller
     {
-        private JustBlogDbContext db = new JustBlogDbContext();
         private readonly ICategoryServices _categoryServices;
 
         public CategoryManagementController(ICategoryServices categoryServices)
@@ -100,24 +100,25 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         }
 
         // GET: Admin/CategoryManagement/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
+        //public ActionResult Details(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Category category = db.Categories.Find(id);
+        //    if (category == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(category);
+        //}
 
         // GET: Admin/CategoryManagement/Create
         public ActionResult Create()
         {
-            return View();
+            var categoryViewModel = new CategoryViewModel();
+            return View(categoryViewModel);
         }
 
         // POST: Admin/CategoryManagement/Create
@@ -125,17 +126,22 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,UrlSlug,Description,IsDeleted,InsertedAt,UpdatedAt")] Category category)
+        public ActionResult Create(CategoryViewModel categoryViewModel)
         {
             if (ModelState.IsValid)
             {
-                category.Id = Guid.NewGuid();
-                db.Categories.Add(category);
-                db.SaveChanges();
+                var category = new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = categoryViewModel.Name,
+                    UrlSlug = categoryViewModel.UrlSlug,
+                    Description = categoryViewModel.Description,
+                };
+                _categoryServices.Add(category);
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            return View(categoryViewModel);
         }
 
         // GET: Admin/CategoryManagement/Edit/5
@@ -145,12 +151,20 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            var category = _categoryServices.GetById((Guid)id);
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+
+            var categoryViewModel = new CategoryViewModel()
+            {
+                Id = category.Id,
+                Name = category.Name,
+                UrlSlug = category.UrlSlug,
+                Description = category.Description
+            };
+            return View(categoryViewModel);
         }
 
         // POST: Admin/CategoryManagement/Edit/5
@@ -158,50 +172,73 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,UrlSlug,Description,IsDeleted,InsertedAt,UpdatedAt")] Category category)
+        [ValidateInput(false)]
+        public async Task<ActionResult> Edit(CategoryViewModel categoryViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                var category = await _categoryServices.GetByIdAsync(categoryViewModel.Id);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                category.Name = categoryViewModel.Name;
+                category.UrlSlug = categoryViewModel.UrlSlug;
+                category.Description = categoryViewModel.Description;
+
+                _categoryServices.Update(category);
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View(categoryViewModel);
         }
 
         // GET: Admin/CategoryManagement/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
+        //public ActionResult Delete(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Category category = db.Categories.Find(id);
+        //    if (category == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(category);
+        //}
 
         // POST: Admin/CategoryManagement/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public async Task<ActionResult> Delete(CategoryViewModel categoryViewModel)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var category = await _categoryServices.GetByIdAsync(categoryViewModel.Id);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                var s = _categoryServices.Delete(category.Id);
+                if (s)
+                {
+                    TempData["Message"] = "Delete Successfully!";
+                }
+                else
+                {
+                    TempData["Message"] = "Delete Failed!";
+                }
+                return RedirectToAction("Index");
+            }
+            return View(categoryViewModel);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
