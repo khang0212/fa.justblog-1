@@ -5,9 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FA.JustBlog.WebMVC.ViewModel
 {
-    public class PostViewModel
+    public class PostViewModel : BaseViewModel
     {
-        public Guid Id { get; set; }
         [Required(ErrorMessage = "The {0} is required")]
         [StringLength(255, ErrorMessage = "The {0} must between {2} and {1} characters", MinimumLength = 3)]
         public string Title { get; set; }
