@@ -1,5 +1,7 @@
 ﻿using FA.JustBlog.Services;
+using FA.JustBlog.WebMVC.ViewModel;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -9,11 +11,13 @@ namespace FA.JustBlog.WebMVC.Controllers
     {
         private readonly IPostServices _postServices;
         private readonly ITagServices _tagServices;
+        private readonly ICategoryServices _categoryServices;
 
-        public HomeController(IPostServices postServices, ITagServices tagServices)
+        public HomeController(IPostServices postServices, ITagServices tagServices, ICategoryServices categoryServices)
         {
             _postServices = postServices;
             _tagServices = tagServices;
+            _categoryServices = categoryServices;
         }
 
         public async Task<ActionResult> Index()
@@ -43,6 +47,15 @@ namespace FA.JustBlog.WebMVC.Controllers
         public ActionResult AboutCard()
         {
             return PartialView("_PartialAboutCard");
+        }
+        public ActionResult CategoryMenu()
+        {
+            var categories = _categoryServices.GetAll().Select(a => new CategoryViewModel
+            {
+                Id = a.Id,
+                Name = a.Name
+            }).ToList();
+            return PartialView("_CategoryView", categories);
         }
     }
 }

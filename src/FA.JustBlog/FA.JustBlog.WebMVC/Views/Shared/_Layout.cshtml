@@ -28,6 +28,7 @@
                 <li class="nav-item active">
                     @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
                 </li>
+                @Html.Action("CategoryMenu", "Home")
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
@@ -46,12 +47,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                @Html.Action("AboutCard", "Home")
-            </div>
-            <div class="col-md-8">
                 @RenderBody()
             </div>
             <div class="col-md-4 pl-5 bg-custom">
+                <div class="col-md-8">
+                    @Html.Action("AboutCard", "Home")
+                </div>
                 <div>
                     @Html.Action("PopularTags", "Tag")
                 </div>

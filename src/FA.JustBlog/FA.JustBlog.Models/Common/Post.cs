@@ -27,8 +27,17 @@ namespace FA.JustBlog.Models.Common
         public string UrlSlug { get; set; }
 
         public bool Published { get; set; }
+        [Required(ErrorMessage = "The {0} is required")]
+        [Display(Name = "View Count")]
         public int ViewCount { get; set; }
-
+        [Required(ErrorMessage = "The {0} is required")]
+        [Display(Name = "Rate Count")]
+        public int RateCount { get; set; }
+        [Required(ErrorMessage = "The {0} is required")]
+        [Display(Name = "Total Rate")]
+        public int TotalRate { get; set; }
+        [NotMapped]
+        public decimal Rate { get => TotalRate / RateCount; }
         public DateTime PublishedDate { get; set; }
 
         [ForeignKey("Category")]

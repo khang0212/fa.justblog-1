@@ -99,20 +99,7 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
             return View(categories);
         }
 
-        // GET: Admin/CategoryManagement/Details/5
-        //public ActionResult Details(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Category category = db.Categories.Find(id);
-        //    if (category == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(category);
-        //}
+        
 
         // GET: Admin/CategoryManagement/Create
         public ActionResult Create()
@@ -126,6 +113,7 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create(CategoryViewModel categoryViewModel)
         {
             if (ModelState.IsValid)
@@ -159,7 +147,6 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
 
             var categoryViewModel = new CategoryViewModel()
             {
-                Id = category.Id,
                 Name = category.Name,
                 UrlSlug = category.UrlSlug,
                 Description = category.Description
@@ -191,54 +178,23 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
             }
             return View(categoryViewModel);
         }
-
-        // GET: Admin/CategoryManagement/Delete/5
-        //public ActionResult Delete(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Category category = db.Categories.Find(id);
-        //    if (category == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(category);
-        //}
-
+        
         // POST: Admin/CategoryManagement/Delete/5
         [HttpPost, ActionName("Delete")]
-        public async Task<ActionResult> Delete(CategoryViewModel categoryViewModel)
+        public ActionResult Delete(Guid id)
         {
-            if (ModelState.IsValid)
+            Category category = _categoryServices.GetById(id);
+            var result = _categoryServices.Delete(category.Id);
+            if (result)
             {
-                var category = await _categoryServices.GetByIdAsync(categoryViewModel.Id);
-                if (category == null)
-                {
-                    return HttpNotFound();
-                }
-                var s = _categoryServices.Delete(category.Id);
-                if (s)
-                {
-                    TempData["Message"] = "Delete Successfully!";
-                }
-                else
-                {
-                    TempData["Message"] = "Delete Failed!";
-                }
-                return RedirectToAction("Index");
+                TempData["Message"] = "Delete Successful";
             }
-            return View(categoryViewModel);
+            else
+            {
+                TempData["Message"] = "Delete Failed";
+            }
+            return RedirectToAction("Index");
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }
