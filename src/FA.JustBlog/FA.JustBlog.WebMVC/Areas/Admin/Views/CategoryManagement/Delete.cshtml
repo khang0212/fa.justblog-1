@@ -1,4 +1,4 @@
-﻿@model FA.JustBlog.WebMVC.ViewModel.CategoryViewModel
+﻿@model FA.JustBlog.Models.Common.Category
 
 @{
     ViewBag.Title = "Delete";
@@ -35,15 +35,15 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.IsDeleted)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.IsDeleted)
-        </dd>*@
+        </dd>
 
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.InsertedAt)
         </dt>
 
@@ -57,11 +57,12 @@
 
         <dd>
             @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>*@
+        </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

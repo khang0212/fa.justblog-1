@@ -57,13 +57,9 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="JustBlogDbContext.cs" />
-    <Compile Include="Migrations\202107281332082_Initialize.cs" />
-    <Compile Include="Migrations\202107281332082_Initialize.designer.cs">
-      <DependentUpon>202107281332082_Initialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202107310801400_Fix seed data.cs" />
-    <Compile Include="Migrations\202107310801400_Fix seed data.designer.cs">
-      <DependentUpon>202107310801400_Fix seed data.cs</DependentUpon>
+    <Compile Include="Migrations\202108020628366_Initializing.cs" />
+    <Compile Include="Migrations\202108020628366_Initializing.designer.cs">
+      <DependentUpon>202108020628366_Initializing.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,11 +75,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202107281332082_Initialize.resx">
-      <DependentUpon>202107281332082_Initialize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202107310801400_Fix seed data.resx">
-      <DependentUpon>202107310801400_Fix seed data.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108020628366_Initializing.resx">
+      <DependentUpon>202108020628366_Initializing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

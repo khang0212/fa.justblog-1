@@ -120,17 +120,22 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,UrlSlug,Description,Count,IsDeleted,InsertedAt,UpdatedAt")] Tag tag)
+        public ActionResult Create(TagViewModel tagViewModel)
         {
             if (ModelState.IsValid)
             {
-                tag.Id = Guid.NewGuid();
-                db.Tags.Add(tag);
-                db.SaveChanges();
+                var tag = new Tag
+                {
+                    Id = Guid.NewGuid(),
+                    Name = tagViewModel.Name,
+                    UrlSlug = tagViewModel.UrlSlug,
+                    Description = tagViewModel.Description
+                };
+                _tagServices.Add(tag);
                 return RedirectToAction("Index");
             }
 
-            return View(tag);
+            return View(tagViewModel);
         }
 
         // GET: Admin/TagManagement/Edit/5
@@ -140,12 +145,19 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tag tag = db.Tags.Find(id);
+            var tag = _tagServices.GetById((Guid)id);
             if (tag == null)
             {
                 return HttpNotFound();
             }
-            return View(tag);
+
+            var tagViewModel = new TagViewModel()
+            {
+                Name = tag.Name,
+                UrlSlug = tag.UrlSlug,
+                Description = tag.Description
+            };
+            return View(tagViewModel);
         }
 
         // POST: Admin/TagManagement/Edit/5
@@ -153,15 +165,24 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,UrlSlug,Description,Count,IsDeleted,InsertedAt,UpdatedAt")] Tag tag)
+        [ValidateInput(false)]
+        public async Task<ActionResult> Edit(TagViewModel tagViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tag).State = EntityState.Modified;
-                db.SaveChanges();
+                var tag = await _tagServices.GetByIdAsync(tagViewModel.Id);
+                if (tag == null)
+                {
+                    return HttpNotFound();
+                }
+                tag.Name = tagViewModel.Name;
+                tag.UrlSlug = tagViewModel.UrlSlug;
+                tag.Description = tagViewModel.Description;
+
+                _tagServices.Update(tag);
                 return RedirectToAction("Index");
             }
-            return View(tag);
+            return View(tagViewModel);
         }
 
         // GET: Admin/TagManagement/Delete/5

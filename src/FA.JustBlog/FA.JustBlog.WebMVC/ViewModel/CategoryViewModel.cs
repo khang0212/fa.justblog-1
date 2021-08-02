@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FA.JustBlog.WebMVC.ViewModel
 {
-    public class CategoryViewModel
+    public class CategoryViewModel : BaseViewModel
     {
-        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "The {0} is required")]
         [StringLength(255, ErrorMessage = "The {0} must between {2} and {1} characters", MinimumLength = 3)]

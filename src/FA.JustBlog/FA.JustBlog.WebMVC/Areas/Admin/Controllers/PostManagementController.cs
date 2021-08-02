@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FA.JustBlog.Data;
+using FA.JustBlog.Models.Common;
+using FA.JustBlog.Services;
+using FA.JustBlog.WebMVC.ViewModel;
+using System;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using FA.JustBlog.Data;
-using FA.JustBlog.Models.Common;
-using FA.JustBlog.Services;
-using FA.JustBlog.WebMVC.ViewModel;
 
 namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
 {
