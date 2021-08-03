@@ -184,7 +184,12 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         public ActionResult Delete(Guid id)
         {
             Category category = _categoryServices.GetById(id);
-            var result = _categoryServices.Delete(category.Id);
+            var result = false;
+            if(category != null)
+            {
+                result = _categoryServices.Delete(category.Id);
+            }
+            
             if (result)
             {
                 TempData["Message"] = "Delete Successful";
