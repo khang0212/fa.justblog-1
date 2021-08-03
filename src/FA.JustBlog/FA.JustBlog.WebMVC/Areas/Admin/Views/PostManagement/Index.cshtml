@@ -41,25 +41,13 @@ else
                 <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["TitleSortParm"], currentFilter = ViewData["CurrentFilter"] })">Title</a>
             </th>
             <th class="col-md-2">
-                <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["ShortDescSortParm"], currentFilter = ViewData["CurrentFilter"] })">Short Description</a>
-            </th>
-            <th class="col-md-2">
-                <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["PostContentSortParm"], currentFilter = ViewData["CurrentFilter"] })">Post Content</a>
-            </th>
-            <th class="col-md-2">
                 <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["UrlSlugSortParm"], currentFilter = ViewData["CurrentFilter"] })">Url Slug</a>
             </th>
             <th class="col-md-2">
                 <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["PublishedSortParm"], currentFilter = ViewData["CurrentFilter"] })">Published</a>
             </th>
             <th class="col-md-2">
-                <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["CategoryIdSortParm"], currentFilter = ViewData["CurrentFilter"] })">CategoryId</a>
-            </th>
-            <th class="col-md-2">
-                <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["TotalTagsSortParm"], currentFilter = ViewData["CurrentFilter"] })">Total Tags</a>
-            </th>
-            <th class="col-md-2">
-                <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["InsertedAtSortParm"], currentFilter = ViewData["CurrentFilter"] })">Inserted At</a>
+                <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["PubLishedDateSortParm"], currentFilter = ViewData["CurrentFilter"] })">PublishedDate</a>
             </th>
             <th class="col-md-2">
                 <a href="@Url.Action("Index", "PostManagement", new { sortOrder = ViewData["UpdatedAtSortParm"], currentFilter = ViewData["CurrentFilter"] })">Updated At</a>
@@ -76,25 +64,13 @@ else
                     </a>
                 </td>
                 <td class="col-md-2">
-                    @post.ShortDescription
-                </td>
-                <td class="col-md-2">
-                    @post.PostContent
-                </td>
-                <td class="col-md-2">
                     @post.UrlSlug
                 </td>
                 <td class="col-md-2">
                     @post.Published
                 </td>
                 <td class="col-md-2">
-                    @post.CategoryId
-                </td>
-                <td class="col-md-2">
-                    @Html.Raw(post.Tags.Count)
-                </td>
-                <td class="col-md-2">
-                    @post.InsertedAt
+                    @post.PublishedDate
                 </td>
                 <td class="col-md-2">
                     @post.UpdatedAt

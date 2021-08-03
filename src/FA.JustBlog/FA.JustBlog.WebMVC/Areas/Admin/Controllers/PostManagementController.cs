@@ -3,6 +3,7 @@ using FA.JustBlog.Models.Common;
 using FA.JustBlog.Services;
 using FA.JustBlog.WebMVC.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,11 +17,17 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
     {
         private JustBlogDbContext db = new JustBlogDbContext();
         private readonly IPostServices _postServices;
+        private readonly ICategoryServices _categoryServices;
+        private readonly ITagServices _tagServices;
 
-        public PostManagementController(IPostServices postServices)
+        public PostManagementController(IPostServices postServices, ICategoryServices categoryServices, ITagServices tagServices)
         {
             _postServices = postServices;
+            _categoryServices = categoryServices;
+            _tagServices = tagServices;
         }
+
+
 
         // GET: Admin/PostManagement
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString,
@@ -29,13 +36,9 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
             ViewData["CurrentPageSize"] = pageSize;
             ViewData["CurrentSort"] = sortOrder;
             ViewData["TitleSortParm"] = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewData["ShortDescSortParm"] = sortOrder == "ShortDesc" ? "shortdesc_desc" : "ShortDesc";
-            ViewData["PostContentSortParm"] = sortOrder == "PostContent" ? "postcontent_desc" : "PostContent";
             ViewData["UrlSlugSortParm"] = sortOrder == "UrlSlug" ? "urlSlug_desc" : "UrlSlug";
             ViewData["PublishedSortParm"] = sortOrder == "Published" ? "published_desc" : "Published";
-            ViewData["CategoryIdSortParm"] = sortOrder == "CategoryId" ? "CategoryId_desc" : "CategoryId";
-            ViewData["TotalTagsSortParm"] = sortOrder == "TotalTags" ? "totalTags_desc" : "TotalTags";
-            ViewData["InsertedAtSortParm"] = sortOrder == "InsertedAt" ? "insertedAt_desc" : "InsertedAt";
+            ViewData["PublishedDateSortParm"] = sortOrder == "PublishedDate" ? "publisheddate_desc" : "PublishedDate";
             ViewData["UpdatedAtSortParm"] = sortOrder == "UpdatedAt" ? "updatedAt_desc" : "UpdatedAt";
 
             if (searchString != null)
@@ -65,18 +68,6 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
                 case "title_desc":
                     orderBy = q => q.OrderByDescending(c => c.Title);
                     break;
-                case "ShortDesc":
-                    orderBy = q => q.OrderBy(c => c.ShortDescription);
-                    break;
-                case "short_desc":
-                    orderBy = q => q.OrderByDescending(c => c.ShortDescription);
-                    break;
-                case "PostContent":
-                    orderBy = q => q.OrderBy(c => c.PostContent);
-                    break;
-                case "postcontent_desc":
-                    orderBy = q => q.OrderByDescending(c => c.PostContent);
-                    break;
                 case "UrlSlug":
                     orderBy = q => q.OrderBy(c => c.UrlSlug);
                     break;
@@ -89,23 +80,11 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
                 case "published_desc":
                     orderBy = q => q.OrderByDescending(c => c.Published);
                     break;
-                case "CategoryId":
-                    orderBy = q => q.OrderBy(c => c.CategoryId);
+                case "PublishedDate":
+                    orderBy = q => q.OrderBy(c => c.Published);
                     break;
-                case "CategoryId_desc":
-                    orderBy = q => q.OrderByDescending(c => c.CategoryId);
-                    break;
-                case "TotalTags":
-                    orderBy = q => q.OrderBy(c => c.Tags.Count);
-                    break;
-                case "totalTags_desc":
-                    orderBy = q => q.OrderByDescending(c => c.Tags.Count);
-                    break;
-                case "InsertedAt":
-                    orderBy = q => q.OrderBy(c => c.InsertedAt);
-                    break;
-                case "insertedAt_desc":
-                    orderBy = q => q.OrderByDescending(c => c.InsertedAt);
+                case "publisheddate_desc":
+                    orderBy = q => q.OrderByDescending(c => c.Published);
                     break;
                 case "UpdatedAt":
                     orderBy = q => q.OrderBy(c => c.UpdatedAt);
@@ -128,7 +107,11 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         // GET: Admin/PostManagement/Create
         public ActionResult Create()
         {
+            //var postViewModel = new PostViewModel();
+            //return View(postViewModel);
+            ViewBag.CategoryId = new SelectList(_categoryServices.GetAll(), "Id", "Name");
             var postViewModel = new PostViewModel();
+            postViewModel.Tags = (System.Collections.Generic.ICollection<Tag>)_tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name});
             return View(postViewModel);
         }
 
@@ -137,7 +120,7 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PostViewModel postViewModel)
+        public async Task<ActionResult> Create(PostViewModel postViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -149,39 +132,44 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
                     PostContent = postViewModel.PostContent,
                     UrlSlug = postViewModel.UrlSlug,
                     Published = postViewModel.Published,
-                    CategoryId = postViewModel.CategoryId
+                    CategoryId = postViewModel.CategoryId,
+                    ImageUrl = postViewModel.ImageUrl,
+                    Tags = await GetSelectedTagFromIds(postViewModel.SelectedTagIds)
                 };
-                _postServices.Add(post);
+                //_postServices.Add(post);
+                var result = await _postServices.AddAsync(post);
                 return RedirectToAction("Index");
             }
-
+            ViewBag.CategoryId = new SelectList(await _categoryServices.GetAllAsync(), "Id", "Name", postViewModel.CategoryId);
+            postViewModel.Tags = (ICollection<Tag>)_tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });
             return View(postViewModel);
         }
 
-        // GET: Admin/PostManagement/Edit/5
-        public ActionResult Edit(Guid? id)
+        private async Task<ICollection<Tag>> GetSelectedTagFromIds(IEnumerable<Guid> selectedTagIds)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var post = _postServices.GetById((Guid)id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
+            var tags = new List<Tag>();
 
-            var postViewModel = new PostViewModel()
+            var tagEntities = await _tagServices.GetAllAsync();
+
+
+            foreach (var item in tagEntities)
             {
-                Id = post.Id,
-                Title = post.Title,
-                ShortDescription = post.ShortDescription,
-                PostContent = post.PostContent,
-                UrlSlug = post.UrlSlug,
-                Published = post.Published,
-                CategoryId = post.CategoryId
-            };
-            return View(postViewModel);
+                if (selectedTagIds.Any(x => x == item.Id))
+                {
+                    tags.Add(item);
+                }
+            }
+            return tags;
+        }
+
+        // GET: Admin/PostManagement/Edit/5
+        public async Task<ActionResult> Edit(Guid? id)
+        {
+            ViewBag.CategoryId = new SelectList(_categoryServices.GetAll(), "Id", "Name");
+            var post = await _postServices.GetByIdAsync((Guid)id);
+            var postViewModel = new PostViewModel();
+            postViewModel.Tags = (ICollection<Tag>)_tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });
+            return View(post);
         }
 
         // POST: Admin/PostManagement/Edit/5
@@ -190,61 +178,38 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public async Task<ActionResult> Edit(PostViewModel postViewModel)
+        public async Task<ActionResult> Edit(Post post)
         {
             if (ModelState.IsValid)
             {
-                var post = await _postServices.GetByIdAsync(postViewModel.Id);
-                if (post == null)
-                {
-                    return HttpNotFound();
-                }
-                post.Title = postViewModel.Title;
-                post.ShortDescription = postViewModel.ShortDescription;
-                post.PostContent = postViewModel.PostContent;
-                post.UrlSlug = postViewModel.UrlSlug;
-                post.Published = postViewModel.Published;
-                post.CategoryId = postViewModel.CategoryId;
-
-                _postServices.Update(post);
                 return RedirectToAction("Index");
             }
-            return View(postViewModel);
-        }
-
-        // GET: Admin/PostManagement/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
+            ViewBag.CategoryId = new SelectList(await _categoryServices.GetAllAsync(), "Id", "Name", post.CategoryId);
             return View(post);
         }
 
+
         // POST: Admin/PostManagement/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult Delete(Guid id)
         {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
+            Post post = _postServices.GetById(id);
+            var result = false;
+            if (post != null)
+            {
+                result = _categoryServices.Delete(post.Id);
+            }
+
+            if (result)
+            {
+                TempData["Message"] = "Delete Successful";
+            }
+            else
+            {
+                TempData["Message"] = "Delete Failed";
+            }
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

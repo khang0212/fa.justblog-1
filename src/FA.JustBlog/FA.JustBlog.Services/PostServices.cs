@@ -39,6 +39,11 @@ namespace FA.JustBlog.Services
             return await _unitOfWork.PostRepository.GetQuery().Where(p => p.Category.Name == category).ToListAsync();
         }
 
+        public async Task<IEnumerable<Post>> GetPostsByCategoryAsync(Guid id)
+        {
+            return await _unitOfWork.PostRepository.GetQuery().Where(p => p.CategoryId == id).ToListAsync();
+        }
+
         public async Task<IEnumerable<Post>> GetPostsByMonthAsync(DateTime monthYear)
         {
             return await _unitOfWork.PostRepository.GetQuery()
@@ -49,6 +54,11 @@ namespace FA.JustBlog.Services
         public async Task<IEnumerable<Post>> GetPostsByTagAsync(string tag)
         {
             return await _unitOfWork.PostRepository.GetQuery().Where(p => p.Tags.Any(t => t.Name == tag)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Post>> GetPostsByTagAsync(Guid tagId)
+        {
+            return await _unitOfWork.PostRepository.GetQuery().Where(p => p.Tags.Any(t => t.Id == tagId)).ToListAsync();
         }
 
         public async Task<IEnumerable<Post>> GetPublisedPostsAsync(bool published = true)
