@@ -186,38 +186,42 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         }
 
         // GET: Admin/TagManagement/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tag tag = db.Tags.Find(id);
-            if (tag == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tag);
-        }
+        //public ActionResult Delete(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Tag tag = db.Tags.Find(id);
+        //    if (tag == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(tag);
+        //}
 
         // POST: Admin/TagManagement/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult Delete(Guid id)
         {
-            Tag tag = db.Tags.Find(id);
-            db.Tags.Remove(tag);
-            db.SaveChanges();
+            Tag tag = _tagServices.GetById(id);
+            var result = false;
+            if (tag != null)
+            {
+                result = _tagServices.Delete(tag.Id);
+            }
+
+            if (result)
+            {
+                TempData["Message"] = "Delete Successful";
+            }
+            else
+            {
+                TempData["Message"] = "Delete Failed";
+            }
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
     }
 }
