@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace FA.JustBlog.WebMVC.ViewModel
 {
@@ -35,6 +36,6 @@ namespace FA.JustBlog.WebMVC.ViewModel
 
         public virtual Category Category { get; set; }
         public IEnumerable<Guid> SelectedTagIds { get; set; }
-        public virtual ICollection<Tag> Tags { get; set; }
+        public virtual IEnumerable<SelectListItem> Tags { get; set; }
     }
 }

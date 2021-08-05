@@ -30,15 +30,38 @@ namespace FA.JustBlog.WebMVC.Controllers
             return View(posts);
         }
 
-        public async Task<ActionResult> LastestPosts()
+        //public ActionResult LastestPosts()
+        //{
+        //    var popularTags = _postServices.GetLatestPostAsync(10);
+        //    return PartialView("_ListPosts", popularTags);
+        //}
+        //public ActionResult MostViewedPosts()
+        //{
+        //    var highestView = _postServices.GetHighestViewCountPost(5);
+        //    return PartialView("_ListPosts", highestView);
+        //}
+
+        public ActionResult LastestPosts()
         {
-            var lastestPost = await _postServices.GetLatestPostAsync(5);
-            return View(lastestPost);
+            var lastestPosts = Task.Run(() => _postServices.GetLatestPostAsync(5)).Result;
+            ViewBag.PartialViewTitle = "Lastest Posts";
+            return PartialView("_ListPosts", lastestPosts);
         }
-        public async Task<ActionResult> MostViewedPosts()
+        public ActionResult MostViewedPosts()
         {
-            var highestView = await _postServices.GetHighestViewCountPostAsync(5);
-            return View(highestView);
+            var lastestPosts = Task.Run(() => _postServices.GetHighestViewCountPost(5)).Result;
+            ViewBag.PartialViewTitle = "Most Viewed Posts";
+            return PartialView("_ListPosts", lastestPosts);
+        }
+
+        public async Task<ActionResult> Details(Guid id)
+        {
+            var post = await _postServices.GetByIdAsync(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
         }
     }
 }

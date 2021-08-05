@@ -18,11 +18,17 @@ namespace FA.JustBlog.WebMVC.Controllers
         {
             return View();
         }
-        [ChildActionOnly]
-        public  ActionResult PopularTags()
+        //[ChildActionOnly]
+        //public  ActionResult PopularTags()
+        //{
+        //    var popularTags = _tagServices.GetHighestViewCountTag(10);
+        //    return PartialView("~/Views/Tag/_PopularTags.cshtml", popularTags);
+        //}
+
+        public ActionResult PopularTags()
         {
-            var popularTags = _tagServices.GetHighestViewCountTag(10);
-            return PartialView("~/Views/Tag/_PopularTags.cshtml", popularTags);
+            var popularTags = Task.Run(() => _tagServices.GetHighestViewCountTag(10)).Result;
+            return PartialView("_PopularTags", popularTags);
         }
     }
 }
