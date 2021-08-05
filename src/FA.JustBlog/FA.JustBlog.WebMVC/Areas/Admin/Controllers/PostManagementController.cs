@@ -52,7 +52,6 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            // x => x.Name.Contains(searchString)
             Expression<Func<Post, bool>> filter = null;
 
             if (!string.IsNullOrEmpty(searchString))
@@ -60,7 +59,6 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
                 filter = c => c.Title.Contains(searchString);
             }
 
-            // q => q.OrderByDescending(c => c.Name)
             Func<IQueryable<Post>, IOrderedQueryable<Post>> orderBy = null;
 
             switch (sortOrder)
@@ -102,7 +100,7 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
             return View(posts);
         }
 
-        
+
 
         // GET: Admin/PostManagement/Create
         public ActionResult Create()
@@ -111,7 +109,7 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
             //return View(postViewModel);
             ViewBag.CategoryId = new SelectList(_categoryServices.GetAll(), "Id", "Name");
             var postViewModel = new PostViewModel();
-            postViewModel.Tags = (System.Collections.Generic.ICollection<Tag>)_tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name});
+            postViewModel.Tags = _tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });
             return View(postViewModel);
         }
 
@@ -120,11 +118,12 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public async Task<ActionResult> Create(PostViewModel postViewModel)
         {
             if (ModelState.IsValid)
             {
-                var post = new Post
+                var p = new Post
                 {
                     Id = Guid.NewGuid(),
                     Title = postViewModel.Title,
@@ -134,42 +133,36 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
                     Published = postViewModel.Published,
                     CategoryId = postViewModel.CategoryId,
                     ImageUrl = postViewModel.ImageUrl,
-                    Tags = await GetSelectedTagFromIds(postViewModel.SelectedTagIds)
+                    Tags = await GetTagById(postViewModel.SelectedTagIds)
                 };
                 //_postServices.Add(post);
-                var result = await _postServices.AddAsync(post);
+                var result = await _postServices.AddAsync(p);
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryId = new SelectList(await _categoryServices.GetAllAsync(), "Id", "Name", postViewModel.CategoryId);
-            postViewModel.Tags = (ICollection<Tag>)_tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });
+            postViewModel.Tags = _tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });
             return View(postViewModel);
-        }
-
-        private async Task<ICollection<Tag>> GetSelectedTagFromIds(IEnumerable<Guid> selectedTagIds)
-        {
-            var tags = new List<Tag>();
-
-            var tagEntities = await _tagServices.GetAllAsync();
-
-
-            foreach (var item in tagEntities)
-            {
-                if (selectedTagIds.Any(x => x == item.Id))
-                {
-                    tags.Add(item);
-                }
-            }
-            return tags;
         }
 
         // GET: Admin/PostManagement/Edit/5
         public async Task<ActionResult> Edit(Guid? id)
         {
-            ViewBag.CategoryId = new SelectList(_categoryServices.GetAll(), "Id", "Name");
-            var post = await _postServices.GetByIdAsync((Guid)id);
-            var postViewModel = new PostViewModel();
-            postViewModel.Tags = (ICollection<Tag>)_tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });
-            return View(post);
+            var p = await _postServices.GetByIdAsync((Guid)id);
+            var postViewModel = new PostViewModel()
+            {
+                Id = p.Id,
+                Title = p.Title,
+                UrlSlug = p.UrlSlug,
+                ShortDescription = p.ShortDescription,
+                ImageUrl = p.ImageUrl,
+                PostContent = p.PostContent,
+                Published = p.Published,
+                CategoryId = p.CategoryId,
+            };
+            ViewBag.Categories = new SelectList(_categoryServices.GetAll(), "Id", "Name", postViewModel.CategoryId);
+            postViewModel.Tags = _tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });
+            ViewBag.TagList = _tagServices.GetAll();
+            return View(postViewModel);
         }
 
         // POST: Admin/PostManagement/Edit/5
@@ -178,14 +171,64 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public async Task<ActionResult> Edit(Post post)
+        public async Task<ActionResult> Edit(PostViewModel postViewModel)
         {
             if (ModelState.IsValid)
             {
+                var post = await _postServices.GetByIdAsync(postViewModel.Id);
+                if (post == null)
+                {
+                    return HttpNotFound();
+                }
+                post.Title = postViewModel.Title;
+                post.UrlSlug = postViewModel.UrlSlug;
+                post.ShortDescription = postViewModel.ShortDescription;
+                post.ImageUrl = postViewModel.ImageUrl;
+                post.PostContent = postViewModel.PostContent;
+                post.Published = postViewModel.Published;
+                post.CategoryId = postViewModel.CategoryId;
+                await UpdateTagById(postViewModel.SelectedTagIds, post);
+
+                var result = await _postServices.UpdateAsync(post);
+                if (result)
+                {
+                    TempData["Message"] = "Update successful!";
+                }
+                else
+                {
+                    TempData["Message"] = "Update failed!";
+
+                }
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(await _categoryServices.GetAllAsync(), "Id", "Name", post.CategoryId);
-            return View(post);
+            ViewBag.Categories = new SelectList(await _categoryServices.GetAllAsync(), "Id", "Name", postViewModel.CategoryId);
+            postViewModel.Tags = _tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });
+            ViewBag.TagList = _tagServices.GetAll();
+            return View(postViewModel);
+        }
+
+        private async Task<ICollection<Tag>> GetTagById(IEnumerable<Guid> tagId)
+        {
+            var tags = new List<Tag>();
+            var tagEntities = await _tagServices.GetAllAsync();
+            foreach (var item in tagEntities)
+            {
+                if (tagId.Any(x => x == item.Id))
+                {
+                    tags.Add(item);
+                }
+            }
+            return tags;
+        }
+
+        private async Task UpdateTagById(IEnumerable<Guid> tagId, Post p)
+        {
+            var tags = p.Tags;
+            foreach (var i in tags.ToList())
+            {
+                p.Tags.Remove(i);
+            }
+            p.Tags = await GetTagById(tagId);
         }
 
 

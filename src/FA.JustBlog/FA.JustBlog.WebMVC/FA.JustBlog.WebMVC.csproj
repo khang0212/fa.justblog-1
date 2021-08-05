@@ -153,6 +153,7 @@
     <Compile Include="Areas\Admin\Controllers\CategoryManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagManagementController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\TagController.cs" />
@@ -329,10 +330,12 @@
     <Content Include="Views\Home\PostDetails.cshtml" />
     <Content Include="Views\Post\_ListPosts.cshtml" />
     <Content Include="Views\Post\LastestPosts.cshtml" />
-    <Content Include="Views\Post\MostViewedPosts.cshtml" />
     <Content Include="Views\Tag\_PopularTags.cshtml" />
     <Content Include="Views\Home\_PartialAboutCard.cshtml" />
     <Content Include="Views\Home\_CategoryView.cshtml" />
+    <Content Include="Views\Post\Details.cshtml" />
+    <Content Include="Views\Shared\_CategoryViewDetails.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
