@@ -262,6 +262,61 @@
                 Count = 7,
                 IsDeleted = false
             };
+            var comment1 = new Comment
+            {
+                Id = Guid.NewGuid(),
+                Name = "Comment 1",
+                Email = "abc@gmail.com",
+                CommentHeader = "Sofia",
+                CommentText = "General",
+                CommentTime = DateTime.ParseExact("2010-05-08", "yyyy-MM-dd", CultureInfo.InvariantCulture)
+            };
+            var comment2 = new Comment
+            {
+                Id = Guid.NewGuid(),
+                Name = "Comment 2",
+                Email = "def@gmail.com",
+                CommentHeader = "Erling",
+                CommentText = "Haaland",
+                CommentTime = DateTime.ParseExact("2010-05-09", "yyyy-MM-dd", CultureInfo.InvariantCulture)
+            };
+            var comment3 = new Comment
+            {
+                Id = Guid.NewGuid(),
+                Name = "Comment 3",
+                Email = "Limfo@gmail.com",
+                CommentHeader = "Hehe",
+                CommentText = "Haha",
+                CommentTime = DateTime.ParseExact("2010-07-08", "yyyy-MM-dd", CultureInfo.InvariantCulture)
+            };
+            var comment4 = new Comment
+            {
+                Id = Guid.NewGuid(),
+                Name = "Comment 4",
+                Email = "okok123@gmail.com",
+                CommentHeader = "mlemmlem",
+                CommentText = "francesco",
+                CommentTime = DateTime.ParseExact("2010-02-08", "yyyy-MM-dd", CultureInfo.InvariantCulture)
+            };
+            var comment5 = new Comment
+            {
+                Id = Guid.NewGuid(),
+                Name = "Comment 5",
+                Email = "dembaba@gmail.com",
+                CommentHeader = "Totti",
+                CommentText = "Gevenberch",
+                CommentTime = DateTime.ParseExact("2010-06-07", "yyyy-MM-dd", CultureInfo.InvariantCulture)
+            };
+            var comment6 = new Comment
+            {
+                Id = Guid.NewGuid(),
+                Name = "Comment 6",
+                Email = "abc@gmail.com",
+                CommentHeader = "Lukaku",
+                CommentText = "Romelu",
+                CommentTime = DateTime.ParseExact("2010-10-10", "yyyy-MM-dd", CultureInfo.InvariantCulture)
+            };
+
             var posts = new List<Post>
             {
                 new Post
@@ -287,7 +342,8 @@
                     Published = true,
                     ViewCount = 3,
                     Category = categories.Single(x => x.Name == categories[0].Name),
-                    Tags = new List<Tag>{tag1, tag2,tag3}
+                    Tags = new List<Tag>{tag1, tag2, tag3},
+                    Comments = new List<Comment>{comment2, comment3}
                 },
                 new Post
                 {
@@ -312,7 +368,8 @@
                     Published = true,
                     ViewCount = 2,
                     Category = categories.Single(x => x.Name == categories[3].Name),
-                    Tags = new List<Tag>{tag1, tag4,tag3}
+                    Tags = new List<Tag>{tag1, tag4,tag3},
+                    Comments = new List<Comment>{comment2, comment4}
                 },
                 new Post
                 {
@@ -337,7 +394,8 @@
                     Published = true,
                     ViewCount = 4,
                     Category = categories.Single(x => x.Name == categories[1].Name),
-                    Tags = new List<Tag>{tag5, tag2,tag3}
+                    Tags = new List<Tag>{tag5, tag2,tag3},
+                    Comments = new List<Comment>{comment5, comment2}
                 },
                 new Post
                 {
@@ -362,7 +420,8 @@
                     Published = true,
                     ViewCount = 3,
                     Category = categories.Single(x => x.Name == categories[2].Name),
-                    Tags = new List<Tag>{tag1, tag5,tag3}
+                    Tags = new List<Tag>{tag1, tag5,tag3},
+                    Comments = new List<Comment>{comment1, comment3}
                 },
                 new Post
                 {
@@ -387,7 +446,8 @@
                     Published = true,
                     ViewCount = 2,
                     Category = categories.Single(x => x.Name == categories[1].Name),
-                    Tags = new List<Tag>{tag2,tag3}
+                    Tags = new List<Tag>{tag2,tag3},
+                    Comments = new List<Comment>{comment6, comment3, comment2}
                 },
                 new Post
                 {
@@ -412,7 +472,8 @@
                     Published = true,
                     ViewCount = 4,
                     Category = categories.Single(x => x.Name == categories[0].Name),
-                    Tags = new List<Tag>{tag6,tag3}
+                    Tags = new List<Tag>{tag6,tag3},
+                    Comments = new List<Comment>{comment3, comment4}
                 },
                 new Post
                 {
@@ -437,9 +498,11 @@
                     Published = true,
                     ViewCount = 4,
                     Category = categories.Single(x => x.Name == categories[3].Name),
-                    Tags = new List<Tag>{tag6,tag3}
-                }
+                    Tags = new List<Tag>{tag6,tag3},
+                    Comments = new List<Comment>{comment1, comment3, comment4}
+                },
             };
+
             context.Categories.AddRange(categories);
             context.Posts.AddRange(posts);
             context.SaveChanges();

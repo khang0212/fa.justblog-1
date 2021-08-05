@@ -16,6 +16,8 @@ namespace FA.JustBlog.Data.Infrastructure
 
         IGenericRepository<Post> PostRepository { get; }
 
+        IGenericRepository<Comment> CommentRepository { get; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

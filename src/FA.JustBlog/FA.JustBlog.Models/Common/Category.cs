@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FA.JustBlog.Models.Common
 {
-    [Table("Category", Schema = "Common")]
+    [Table("Category", Schema = "common")]
     public class Category : BaseEntity
     {
 

@@ -27,13 +27,13 @@ namespace FA.JustBlog.Models.Common
         public string UrlSlug { get; set; }
 
         public bool Published { get; set; }
-        [Required(ErrorMessage = "The {0} is required")]
+
         [Display(Name = "View Count")]
         public int ViewCount { get; set; }
-        [Required(ErrorMessage = "The {0} is required")]
+
         [Display(Name = "Rate Count")]
         public int RateCount { get; set; }
-        [Required(ErrorMessage = "The {0} is required")]
+
         [Display(Name = "Total Rate")]
         public int TotalRate { get; set; }
         [NotMapped]
@@ -42,6 +42,8 @@ namespace FA.JustBlog.Models.Common
 
         [ForeignKey("Category")]
         public Guid CategoryId { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual Category Category { get; set; }
 

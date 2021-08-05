@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FA.JustBlog.Data
 {
-    public class DbInitializer : CreateDatabaseIfNotExists<JustBlogDbContext>
+    public class DbInitializer : DropCreateDatabaseAlways<JustBlogDbContext>
     {
         protected override void Seed(JustBlogDbContext context)
         {
