@@ -158,6 +158,7 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
                 PostContent = p.PostContent,
                 Published = p.Published,
                 CategoryId = p.CategoryId,
+                SelectedTagIds = p.Tags.Select(k=>k.Id)
             };
             ViewBag.Categories = new SelectList(_categoryServices.GetAll(), "Id", "Name", postViewModel.CategoryId);
             postViewModel.Tags = _tagServices.GetAll().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name });

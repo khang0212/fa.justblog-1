@@ -59,5 +59,17 @@ namespace FA.JustBlog.WebMVC.Controllers
             }).ToList();
             return PartialView("_CategoryView", categories);
         }
+        public ActionResult Menu()
+        {
+            var categories = _categoryServices.GetAll();
+            var popularCategories = categories.OrderByDescending(x => x.Posts.Count).Take(4);
+            var leftCategories = categories.OrderByDescending(x => x.Posts.Count).Skip(4);
+            var categoryMenuViewModel = new CategoryMenuViewModel()
+            {
+                PopularCategory = popularCategories,
+                leftCategories = leftCategories
+            };
+            return PartialView("_Menu", categoryMenuViewModel);
+        }
     }
 }
