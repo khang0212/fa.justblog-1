@@ -24,7 +24,12 @@ namespace FA.JustBlog.Services
             return await _unitOfWork.PostRepository.GetQuery().CountAsync(p => p.Tags.Any(t => t.Name == tag));
         }
 
-        public async Task<IEnumerable<Post>> GetHighestViewCountPostAsync(int count)
+        public async Task<IEnumerable<Post>> GetHighestPostsAsync(int size)
+        {
+            return await _unitOfWork.PostRepository.GetQuery().OrderByDescending(p => p.Rate).Take(size).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Post>> GetHighestViewCountPost(int count)
         {
             return await _unitOfWork.PostRepository.GetQuery().OrderByDescending(p => p.ViewCount).Take(count).ToListAsync();
         }

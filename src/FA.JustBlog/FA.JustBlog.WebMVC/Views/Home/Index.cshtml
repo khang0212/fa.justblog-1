@@ -1,28 +1,49 @@
-﻿@model IEnumerable<FA.JustBlog.Models.Common.Post>
+﻿@model FA.JustBlog.Common.Paginated<Post>
 @{
     ViewBag.Title = "Home Page";
 }
 
-@*@foreach (var item in Model)
-    {
-        <div class="item">
-            <div class="post_s_item">
-                <div class="post_img">
-                    <img src="../asset/images/@item.ImageUrl" alt="@item.ImageUrl">
-                </div>
-                <div class="post_text">
-                    <a class="cat" href="#">@item.Category.Name</a>
-                    <a href="single-blog.html"><h4>@item.Title</h4></a>
-                    <p>@item.ShortDescription</p>
-                    <div class="date">
-                        <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> @item.PublishedDate</a>
-                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }*@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
 @foreach (var item in Model)
 {
     @Html.Partial("_PostView", item)
 }
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        @{
+            var prevDis = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDis = !Model.HasNextPage ? "disabled" : "";
+            ViewBag.PageRange = 3;
+        }
+        <li class="page-item">
+            <a href="@Url.Action("Index", "Home", new {  pageIndex=1 })"
+               class="btn page-link @prevDis"><<</a>
+        <li class="page-item">
+            <a href="@Url.Action("Index", "Home", new {  pageIndex=(Model.PageIndex - 1 <= 0 ? 1 : Model.PageIndex - 1) })"
+               class="btn page-link @prevDis"><</a>
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i >= Model.PageIndex - ViewBag.PageRange && i <= Model.PageIndex + ViewBag.PageRange)
+            {
+                <li class="page-item">
+                    <a class="@(i==Model.PageIndex ? "Current" : "") page-link"
+                       href="@Url.Action("Index", "Home", new {  pageIndex=i })">@i</a>
+                </li>
+            }
+        }
+        <li class="page-item">
+            <a href="@Url.Action("Index", "Home", new {  pageIndex=(Model.PageIndex + 1 > Model.TotalPages ? Model.TotalPages : Model.PageIndex + 1)})"
+               class="btn page-link @nextDis">></a>
+        <li class="page-item">
+            <a href="@Url.Action("Index", "Home", new { pageIndex=(Model.TotalPages) })"
+               class="btn page-link @nextDis">>></a>
+    </ul>
+</nav>
+
