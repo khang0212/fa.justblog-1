@@ -300,6 +300,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Style\Style.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -329,13 +330,12 @@
     <Content Include="Views\Shared\_PostView.cshtml" />
     <Content Include="Views\Shared\_SaveDraft.cshtml" />
     <Content Include="Views\Home\PostDetails.cshtml" />
-    <Content Include="Views\Post\_ListPosts.cshtml" />
+    <Content Include="Views\Shared\_ListPosts.cshtml" />
     <Content Include="Views\Post\LastestPosts.cshtml" />
     <Content Include="Views\Tag\_PopularTags.cshtml" />
     <Content Include="Views\Home\_PartialAboutCard.cshtml" />
     <Content Include="Views\Home\_CategoryView.cshtml" />
     <Content Include="Views\Post\Details.cshtml" />
-    <Content Include="Views\Shared\_CategoryViewDetails.cshtml" />
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Home\_Menu.cshtml" />
   </ItemGroup>
@@ -344,7 +344,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\ViewModels\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

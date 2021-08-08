@@ -2,10 +2,14 @@
 @{
     ViewBag.Title = ViewBag.CategoryName;
 }
-
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 @foreach (var item in Model)
 {
-    <img src="../asset/images/@item.ImageUrl" class="card-img-top" alt="@item.ImageUrl">
+    <img src="~/asset/images/@item.ImageUrl" class="card-img-top" alt="@item.ImageUrl">
     <h1>@item.Title</h1>
     <h2>@item.PostContent</h2>
 }
