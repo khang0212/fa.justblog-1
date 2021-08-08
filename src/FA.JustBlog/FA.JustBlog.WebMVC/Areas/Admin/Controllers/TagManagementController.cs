@@ -117,7 +117,7 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
 
         // POST: Admin/TagManagement/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=31759.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TagViewModel tagViewModel)
