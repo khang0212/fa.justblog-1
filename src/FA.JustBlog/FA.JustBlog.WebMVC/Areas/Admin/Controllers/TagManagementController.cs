@@ -190,7 +190,7 @@ namespace FA.JustBlog.WebMVC.Areas.Admin.Controllers
         //{
         //    if (id == null)
         //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest
         //    }
         //    Tag tag = db.Tags.Find(id);
         //    if (tag == null)
