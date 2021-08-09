@@ -14,3 +14,9 @@
 /src/FA.JustBlog/FA.JustBlog.WebMVC/obj/Debug
 /src/FA.JustBlog/FA.JustBlog.Common/bin/Debug
 /src/FA.JustBlog/FA.JustBlog.Common/obj/Debug
+/.vs
+/src/FA.JustBlog/FA.JustBlog.Common/obj/Release
+/src/FA.JustBlog/FA.JustBlog.Data/obj/Release
+/src/FA.JustBlog/FA.JustBlog.Models/obj/Release
+/src/FA.JustBlog/FA.JustBlog.Services/obj/Release
+/src/FA.JustBlog/FA.JustBlog.WebMVC/obj/Release
