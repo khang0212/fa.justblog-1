@@ -1,0 +1,44 @@
+﻿@model FA.JustBlog.Common.Paginated<Post>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_PostView", item)
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        @{
+            var prevDis = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDis = !Model.HasNextPage ? "disabled" : "";
+            ViewBag.PageRange = 3;
+        }
+        <li class="page-item">
+            <a href="@Url.Action("Index", "Home", new {  pageIndex=1 })"
+               class="btn page-link @prevDis"><<</a>
+        <li class="page-item">
+            <a href="@Url.Action("Index", "Home", new {  pageIndex=(Model.PageIndex - 1 <= 0 ? 1 : Model.PageIndex - 1) })"
+               class="btn page-link @prevDis"><</a>
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i >= Model.PageIndex - ViewBag.PageRange && i <= Model.PageIndex + ViewBag.PageRange)
+            {
+                <li class="page-item">
+                    <a class="@(i==Model.PageIndex ? "Current" : "") page-link"
+                       href="@Url.Action("Index", "Home", new {  pageIndex=i })">@i</a>
+                </li>
+            }
+        }
+        <li class="page-item">
+            <a href="@Url.Action("Index", "Home", new {  pageIndex=(Model.PageIndex + 1 > Model.TotalPages ? Model.TotalPages : Model.PageIndex + 1)})"
+               class="btn page-link @nextDis">></a>
+        <li class="page-item">
+            <a href="@Url.Action("Index", "Home", new { pageIndex=(Model.TotalPages) })"
+               class="btn page-link @nextDis">>></a>
+    </ul>
+</nav>
+

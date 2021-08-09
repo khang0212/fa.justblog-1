@@ -1,0 +1,19 @@
+﻿
+<link href="~/Style/Style.css" rel="stylesheet" type="text/css" />
+<div class="card mb-3">
+    <img src="~/asset/images/@Model.ImageUrl" class="card-img-top" alt="@Model.Title">
+    <div class="card-body">
+        <div class="category-button">
+            <a href="@Url.Action("Details", "Categories", new { id = Model.Category.Id })" class="button"><span>@Model.Category.Name </span></a>
+        </div>
+        <a href="@Url.Action("Details", "Post", new { id = Model.Id })" class="card-title">
+            <h3>@Model.Title</h3>
+        </a>
+        <p class="card-text">@Model.ShortDescription</p>
+    </div>
+    <div class="card-footer">
+        <i class="fas fa-calendar-alt mr-3"></i> @Model.PublishedDate.ToString("MMM/dd/yyyy")
+    </div>
+</div>
+
+
