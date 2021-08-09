@@ -1,9 +1,11 @@
 ﻿namespace FA.JustBlog.Data.Migrations
 {
     using FA.JustBlog.Models.Common;
+    using FA.JustBlog.Models.Security;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Globalization;
     using System.Linq;
@@ -17,6 +19,8 @@
 
         protected override void Seed(FA.JustBlog.Data.JustBlogDbContext context)
         {
+            InitializeIdentity(context);
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
@@ -506,6 +510,37 @@
             context.Categories.AddRange(categories);
             context.Posts.AddRange(posts);
             context.SaveChanges();
+        }
+        public static void InitializeIdentity(JustBlogDbContext db)
+        {
+            var userManager = new UserManager<User>(new UserStore<User>(db));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            const string name = "admin@example.com";
+            const string password = "Admin@123456";
+            const string roleName = "Admin";
+
+            //Create Role Admin if it does not exist
+            var role = roleManager.FindByName(roleName);
+            if (role == null)
+            {
+                role = new IdentityRole(roleName);
+                var roleResult = roleManager.Create(role);
+            }
+
+            var user = userManager.FindByName(name);
+            if (user == null)
+            {
+                user = new User { UserName = name, Email = name };
+                var result = userManager.Create(user, password);
+                result = userManager.SetLockoutEnabled(user.Id, false);
+            }
+
+            // Add user admin to Role Admin if not already added
+            var rolesForUser = userManager.GetRoles(user.Id);
+            if (!rolesForUser.Contains(role.Name))
+            {
+                var result = userManager.AddToRole(user.Id, role.Name);
+            }
         }
     }
 }

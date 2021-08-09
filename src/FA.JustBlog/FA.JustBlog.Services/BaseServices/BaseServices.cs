@@ -1,6 +1,7 @@
 ﻿using FA.JustBlog.Common;
 using FA.JustBlog.Data.Infrastructure;
 using FA.JustBlog.Models;
+using FA.JustBlog.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,6 +20,7 @@ namespace FA.JustBlog.Services.BaseServices
             _unitOfWork = unitOfWork;
         }
 
+        
         public virtual int Add(TEntity entity)
         {
             if (entity == null)
@@ -29,7 +31,7 @@ namespace FA.JustBlog.Services.BaseServices
             return _unitOfWork.SaveChanges();
         }
 
-        public async Task<int> AddAsync(TEntity entity)
+        public virtual async Task<int> AddAsync(TEntity entity)
         {
             if (entity == null)
             {

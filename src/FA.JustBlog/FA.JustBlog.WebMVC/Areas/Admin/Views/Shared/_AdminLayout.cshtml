@@ -28,23 +28,10 @@
                 <li class="nav-item active">
                     @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
                 </li>
+                </ul>
 </div>
     </nav>
     <div class="container">
-        <!--<div class="row">-->
-        @*<div class="col-md-8">
-            @Html.Action("AboutCard", "Home")
-        </div>*@
-        <!--<div class="col-md-8">
-
-    </div>
-    <!--<div class="col-md-4 pl-5 bg-custom">-->
-        -->
-        <!--@*<div>
-            @Html.Action("PopularTags", "Tag")
-        </div>*@-->
-        <!--</div>-->
-        <!--</div>-->
         @RenderBody()
         @Html.Partial("_Footer")
     </div>

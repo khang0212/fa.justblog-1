@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,12 +7,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home", new { area = "" })">
             <img src="~/asset/images/collection-play.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            Just Blog
+            JustBlog
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,37 +22,54 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                    <a class="nav-link" href="@Url.Action("Index", "Home", new { area = "" })">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("About", "Home", new { area = "" })">About</a>
                 </li>
-                <li class="nav-item active">
-                    @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Contact", "Home", new { area = "" })">Contact</a>
                 </li>
-                @Html.Action("CategoryMenu", "Home")
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Management
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="@Url.Action("Index", "CategoryManagement", new { area = "admin" })">Category Management</a>
-                        <a class="dropdown-item" href="@Url.Action("Index", "PostManagement", new { area = "admin"})">Post Management</a>
-                        <a class="dropdown-item" href="@Url.Action("Index", "TagManagement", new { area = "admin" })">Tag Management</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Dashboard</a>
-                    </div>
-                </li>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Identity Dashboard
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Index", "UsersAdmin", new { area = "Identity" })">Users Admin</a>
+                            <a class="dropdown-item" href="@Url.Action("Index", "RolesAdmin", new { area = "Identity" })">Roles Admin</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Manager</a>
+                        </div>
+                    </li>
+                    @Html.Action("CategoryMenu", "Home")
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Management Dashboard
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Index", "CategoryManagement", new { area = "admin" })">Category Management</a>
+                            <a class="dropdown-item" href="@Url.Action("Index", "PostManagement", new { area = "admin"})">Post Management</a>
+                            <a class="dropdown-item" href="@Url.Action("Index", "TagManagement", new { area = "admin" })">Tag Management</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Dashboard</a>
+                        </div>
+                    </li>
+                }
             </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </nav>
+
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 pl-10 bg-custom">
                 @RenderBody()
+
             </div>
             <div class="col-md-4 pl-5 bg-custom">
-                <div class="col-md-8">
+                <div>
                     @Html.Action("AboutCard", "Home")
                 </div>
                 <div>
@@ -64,10 +81,13 @@
             </div>
         </div>
         @Html.Partial("_Footer")
-        @*@Html.Action("PopularTags", "Tag")*@
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        </div>
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 </body>
 </html>

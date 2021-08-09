@@ -54,9 +54,19 @@ namespace FA.JustBlog.WebMVC.Controllers
             return PartialView("_ListPosts", lastestPosts);
         }
 
-        public async Task<ActionResult> Details(Guid id)
+        //public async Task<ActionResult> Details(Guid id)
+        //{
+        //    var post = await _postServices.GetByIdAsync(id);
+        //    if (post == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(post);
+        //}
+
+        public async Task<ActionResult> Details(int year, int month, string urlSlug)
         {
-            var post = await _postServices.GetByIdAsync(id);
+            var post = await _postServices.GetPostsByTimeAndUrlSlugAsync(year, month, urlSlug);
             if (post == null)
             {
                 return HttpNotFound();

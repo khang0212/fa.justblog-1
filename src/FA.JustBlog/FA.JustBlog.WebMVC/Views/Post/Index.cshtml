@@ -4,5 +4,5 @@
 }
 @foreach (var item in Model)
 {
-    @Html.Partial("_ListPosts", item)
+<a href="@Url.Action("Details", "Post", new { year = item.PublishedDate.Year, month=item.PublishedDate.Month.ToString("D2"), urlSlug=item.UrlSlug +"-"+ item.Id})">@item.Title</a>
 }

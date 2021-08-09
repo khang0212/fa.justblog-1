@@ -1,0 +1,13 @@
+﻿@model  IEnumerable<Post>
+
+<div class="list-group">
+    <h3>@ViewBag.PartialViewTitle</h3>
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("Details", "Post", new {@id = item.Id })" class="list-group-item list-group-item-action">
+            <h5>@item.Title</h5>
+            <small>3 days ago</small>
+            <p class="mb-1">Just as your title and meta description must sell the click, the introduction must sell the read.</p>
+        </a>
+    }
+</div>

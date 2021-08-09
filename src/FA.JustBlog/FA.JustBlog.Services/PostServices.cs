@@ -14,6 +14,22 @@ namespace FA.JustBlog.Services
         public PostServices(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
+        public override int Add(Post entity)
+        {
+            if (entity.Published)
+            {
+                entity.PublishedDate = DateTime.Now;
+            }
+            return base.Add(entity);
+        }
+        public override Task<int> AddAsync(Post entity)
+        {
+            if (entity.Published)
+            {
+                entity.PublishedDate = DateTime.Now;
+            }
+            return base.AddAsync(entity);
+        }
         public async Task<int> CountPostsForCategoryAsync(string category)
         {
             return await _unitOfWork.PostRepository.GetQuery().CountAsync(p => p.Category.Name == category);
@@ -64,6 +80,12 @@ namespace FA.JustBlog.Services
         public async Task<IEnumerable<Post>> GetPostsByTagAsync(Guid tagId)
         {
             return await _unitOfWork.PostRepository.GetQuery().Where(p => p.Tags.Any(t => t.Id == tagId)).ToListAsync();
+        }
+
+        public async Task<Post> GetPostsByTimeAndUrlSlugAsync(int year, int month, string urlSlug)
+        {
+            return await _unitOfWork.PostRepository.GetQuery()
+                .FirstOrDefaultAsync(x => x.PublishedDate.Year == year && x.PublishedDate.Month == month && x.UrlSlug == urlSlug);
         }
 
         public async Task<IEnumerable<Post>> GetPublisedPostsAsync(bool published = true)

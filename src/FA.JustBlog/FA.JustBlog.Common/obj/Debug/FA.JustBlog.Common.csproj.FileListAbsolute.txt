@@ -3,10 +3,12 @@ C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\bin\De
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\bin\Debug\FA.JustBlog.Common.pdb
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\bin\Debug\EntityFramework.dll
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\bin\Debug\Microsoft.AspNet.Identity.Core.dll
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\bin\Debug\EntityFramework.xml
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\obj\Debug\FA.JustBlog.Common.csproj.AssemblyReference.cache
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\obj\Debug\FA.JustBlog.Common.csproj.CoreCompileInputs.cache
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\obj\Debug\FA.JustBlog.Common.csproj.CopyComplete
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\obj\Debug\FA.JustBlog.Common.dll
 C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\obj\Debug\FA.JustBlog.Common.pdb
-C:\Users\DELL\Desktop\real\fa.justblog\src\FA.JustBlog\FA.JustBlog.Common\obj\Debug\FA.JustBlog.Common.csproj.AssemblyReference.cache
