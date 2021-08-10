@@ -3,3 +3,14 @@
 ################################################################################
 
 
+/.vs
+/src/FA.JustBlog/.vs/FA.JustBlog
+/src/FA.JustBlog/FA.JustBlog.Common/bin/Debug
+/src/FA.JustBlog/FA.JustBlog.Common/obj
+/src/FA.JustBlog/FA.JustBlog.Data/obj
+/src/FA.JustBlog/FA.JustBlog.Models/bin/Debug
+/src/FA.JustBlog/FA.JustBlog.Models/obj
+/src/FA.JustBlog/FA.JustBlog.Services/bin/Debug
+/src/FA.JustBlog/FA.JustBlog.Services/obj
+/src/FA.JustBlog/FA.JustBlog.Data/bin/Debug
+/src/FA.JustBlog/packages
