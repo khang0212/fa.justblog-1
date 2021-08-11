@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = Model.Title;
 }
+<link href="~/Style/Style.css" rel="stylesheet" type="text/css" />
 <img src="~/asset/images/@Model.ImageUrl" class="card-img-top" alt="@Model.ImageUrl">
 <h1>@Model.Title</h1>
-<h2>@Model.PostContent</h2>
+<div><b>Published Date: </b> @Model.PublishedDate</div>
+<div><b>Url Slug: </b> @Model.UrlSlug</div>
+<div><b>Content: </b> @Model.PostContent</div>

@@ -21,7 +21,7 @@ namespace FA.JustBlog.Services
 
         public async Task<IEnumerable<Tag>> GetHighestViewCountTag(int count)
         {
-            return await _unitOfWork.TagRepository.GetQuery().OrderByDescending(p => p.Posts.Count).ToListAsync();
+            return await _unitOfWork.TagRepository.GetQuery().OrderByDescending(p => p.Count).Take(count).ToListAsync();
         }
 
         public async Task<IEnumerable<Tag>> GetTagsByPostAsync(string post)

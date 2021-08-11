@@ -830,7 +830,7 @@
     <Content Include="Views\Shared\_SaveDraft.cshtml" />
     <Content Include="Views\Home\PostDetails.cshtml" />
     <Content Include="Views\Shared\_ListPosts.cshtml" />
-    <Content Include="Views\Post\LastestPosts.cshtml" />
+    <Content Include="Views\Post\_LastestPosts.cshtml" />
     <Content Include="Views\Tag\_PopularTags.cshtml" />
     <Content Include="Views\Home\_PartialAboutCard.cshtml" />
     <Content Include="Views\Home\_CategoryView.cshtml" />
